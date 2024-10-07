@@ -3,15 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scavenge NYC</title>
-    <link rel="stylesheet" href="style.css">
+    <title>ScavengeNYC</title>
+    <style>
+        body {
+            background-color: black;
+            font-family: Helvetica, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #container {
+            max-width: 600px;
+            text-align: center;
+            padding: 20px;
+        }
+        .text {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+        .button {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid white;
+            cursor: pointer;
+            display: none;
+            margin-top: 20px;
+        }
+        .instagram-button {
+            background-color: white;
+            color: black;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+        .corner-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            color: black;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+        #read-again {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <div id="typewriter">
-        <span id="typed-text"></span>
+
+    <div id="container">
+        <video id="intro-video" width="600" autoplay muted>
+            <source src="myvideo.mp4" type="video/mp4">
+        </video>
+        <div id="text-container"></div>
+        <button id="continue-button" class="button">Continue</button>
+        <button id="yes-button" class="button">Read the message</button>
+        <button id="no-button" class="button" onclick="window.close()">Close tab</button>
+        <button id="read-again" class="button">Read Again</button>
+        <button id="instagram-button" class="instagram-button" onclick="window.open('https://www.instagram.com/ScavengeNYC_', '_blank')">Follow Here</button>
+        <button id="corner-button" class="corner-button" onclick="window.open('https://www.instagram.com/ScavengeNYC_', '_blank')">Follow Here</button>
     </div>
-    <button id="next-text" style="display:none;">Tap to continue</button>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="script.js"></script>
+
+    <script>
+        const textData = [
+            { text: "Thanks for scanning me.", button: true },
+            { text: "I have a message for you… It’s from the founder.", button: true },
+            { text: "Should we read it?", button: false },
+            { text: "Yes:", button: false },
+            { text: "No:", button: false },
+            { text: "Dear New Yorker,", button: true },
+            { text: "Imagine a city where every street corner hides a secret, where every alleyway whispers of stories untold. What if I told you that you could be the one to uncover them?", button: true },
+            { text: "You see, I have a plan. A vision to turn our beloved city into a playground of exploration and discovery… All for free. Picture this: a city-wide adventure, crafted just for you, where every clue leads you deeper into the heart of New York’s hidden gems. Sounds good, doesn’t it?", button: true },
+            { text: "But here’s the thing—to turn this idea into reality, I need you. Without your support, this dream stays just that—a dream. Your participation is the key to unlocking it all.", button: true },
+            { text: "Will you take the first step?", button: true },
+            { text: "Let’s start by taking a simple one: follow @ScavengeNYC_ on Instagram. Together, we’ll make New York an adventure like never before.", button: true, instagram: true },
+            { text: "Your journey awaits… but only if you choose to begin.", button: true }
+        ];
+
+        const introVideo = document.getElementById("intro-video");
+        const textContainer = document.getElementById("text-container");
+        const continueButton = document.getElementById("continue-button");
+        const yesButton = document.getElementById("yes-button");
+        const noButton = document.getElementById("no-button");
+        const instagramButton = document.getElementById("instagram-button");
+        const cornerButton = document.getElementById("corner-button");
+        const readAgainButton = document.getElementById("read-again");
+
+        let textIndex = 0;
+
+        function displayText(text) {
+            const newText = document.createElement("p");
+            newText.classList.add("text");
+            newText.textContent = text;
+            textContainer.appendChild(newText);
+        }
+
+        function nextText() {
+            if (textIndex < textData.length) {
+                displayText(textData[textIndex].text);
+                if (textData[textIndex].button) {
+                    continueButton.style.display = "inline-block";
+                }
+                if (textData[textIndex].instagram) {
+                    instagramButton.style.display = "inline-block";
+                }
+                textIndex++;
+            } else {
+                readAgainButton.style.display = "inline-block";
+            }
+        }
+
+        function resetNote() {
+            textContainer.innerHTML = "";
+            textIndex = 0;
+            nextText();
+            cornerButton.style.display = "none";
+        }
+
+        continueButton.addEventListener("click", () => {
+            continueButton.style.display = "none";
+            nextText();
+        });
+
+        yesButton.addEventListener("click", () => {
+            yesButton.style.display = "none";
+            noButton.style.display = "none";
+            nextText();
+        });
+
+        readAgainButton.addEventListener("click", () => {
+            resetNote();
+            cornerButton.style.display = "inline-block";
+        });
+
+        introVideo.onended = function () {
+            introVideo.style.display = "none";
+            nextText();
+        };
+    </script>
 </body>
 </html>

@@ -1,25 +1,62 @@
+/* General styling */
 body {
-    background-color: black;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    font-family: 'Helvetica', sans-serif;
+    background: lightgray;
+}
+
+#introVideo {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+/* Text container and typewriter effect */
+#textContainer {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+}
+
+#text {
+    font-size: 50px;
+    color: black;
     text-align: center;
 }
 
-#typewriter {
-    font-size: 24px;
-    max-width: 80%;
+.black-button {
+    background-color: black;
+    color: white;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 20px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 
-button {
-    background-color: transparent;
+.small-button {
+    font-size: 15px;
+    background-color: black;
+    color: white;
     border: none;
-    color: #1E90FF;
-    font-size: 18px;
+    padding: 5px 10px;
     cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Positioning for Instagram follow button after first read-through */
+#followButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+/* Additional animations and transitions */
+#continueButton, #followButton {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }

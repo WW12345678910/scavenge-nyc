@@ -1,50 +1,76 @@
-// Load the typing sound
-var audio = new Audio('sounds/typing-sound.mp3');
-
-// Initialize the first Typed.js instance
-var typed = new Typed('#typed-text', {
-    strings: [
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('intro-video'); // Updated ID to match your HTML
+    const typewriterText = [
         "Thanks for scanning me.",
         "I have a message for you… It’s from the founder.",
-        "Should we read it?^1000\nYes: (Tap to continue) No: (Close tab)"
-    ],
-    typeSpeed: 50,
-    backSpeed: 25,
-    loop: false,
-    onStringTyped: function() {
-        audio.play();
-    },
-    onComplete: function() {
-        document.getElementById('next-text').style.display = 'block';
-    }
-});
+        "Should we read it?",
+        "Yes: (Tap to continue)",
+        "No: (Close tab)",
+        "Dear New Yorker,",
+        "Imagine a city where every street corner hides a secret, where every alleyway whispers of stories untold...",
+        "But here’s the thing—to turn this idea into reality, I need you...",
+        "Let’s start by taking a simple one: follow @ScavengeNYC_ on Instagram...",
+        "Your journey awaits… but only if you choose to begin."
+    ];
 
-// Function to handle the next part of the text
-function loadNextText() {
-    document.getElementById('next-text').style.display = 'none';
-    
-    var additionalTyped = new Typed('#typed-text', {
-        strings: [
-            "Dear New Yorker,^500",
-            "Imagine a city where every street corner hides a secret, where every alleyway whispers of stories untold. What if I told you that you could be the one to uncover them?^1000\n\n",
-            "You see, I have a plan. A vision to turn our beloved city into a playground of exploration and discovery… All for free. Picture this: a city-wide adventure, crafted just for you, where every clue leads you deeper into the heart of New York’s hidden gems. Sounds good, doesn’t it?^1000\n\n",
-            "But here’s the thing—to turn this idea into reality, I need you. Without your support, this dream stays just that—a dream. Your participation is the key to unlocking it all.^1000\n\n",
-            "Will you take the first step?^1000\n\n",
-            "Let’s start by taking a simple one: follow @ScavengeNYC_ on Instagram. Together, we’ll make New York an adventure like never before.^1000\n\n",
-            "Your journey awaits… but only if you choose to begin.^1000\n\n(instagram link)"
-        ],
-        typeSpeed: 50,
-        backSpeed: 25,
-        loop: false,
-        startDelay: 500,
-        onStringTyped: function() {
-            audio.play();
-        },
-        onComplete: function() {
-            document.getElementById('next-text').style.display = 'block';
+    const typewriter = document.getElementById('text-container'); // Updated ID to match your HTML
+    let i = 0;
+    let j = 0;
+    let currentText = '';
+    let isDeleting = false;
+    let isComplete = false;
+
+    // Create an audio element for typing sound
+    const typingSound = new Audio('myaudio.wav'); // Replace with the name of your audio file
+
+    // Function for typing effect
+    function type() {
+        if (i < typewriterText.length) {
+            if (!isDeleting && j <= typewriterText[i].length) {
+                currentText = typewriterText[i].slice(0, j++);
+                typewriter.textContent = currentText;
+                typingSound.play(); // Play typing sound
+                setTimeout(type, 150);
+            } else if (isDeleting && j > 0) {
+                currentText = typewriterText[i].slice(0, j--);
+                typewriter.textContent = currentText;
+                setTimeout(type, 100);
+            } else {
+                if (!isDeleting) {
+                    setTimeout(() => {
+                        isDeleting = true;
+                        type();
+                    }, 2000);
+                } else {
+                    isDeleting = false;
+                    i++;
+                    j = 0;
+                    type();
+                }
+            }
+        } else {
+            isComplete = true;
+            document.getElementById('continue-button').classList.remove('hidden'); // Updated ID to match your HTML
+        }
+    }
+
+    // Start typing after video ends (around 8-9 seconds with abrupt cut-off)
+    video.addEventListener('timeupdate', function() {
+        if (video.currentTime >= 8.5) {
+            video.style.display = 'none'; // Abrupt cut-off
+            type();
         }
     });
-}
 
-// Event listener for the "Tap to continue" button
-document.getElementById('next-text').addEventListener('click', loadNextText);
+    // Continue button functionality
+    document.getElementById('continue-button').addEventListener('click', function() {
+        if (isComplete) {
+            document.getElementById('instagram-button').classList.remove('hidden'); // Updated ID to match your HTML
+        }
+    });
+
+    // Read again button and Instagram follow functionality
+    document.getElementById('instagram-button').addEventListener('click', function() {
+        // Place Instagram follow logic here if needed
+    });
+});
