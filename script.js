@@ -22,14 +22,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Typing sound
     const typingSound = new Audio('myaudio.wav'); // Replace with your actual audio file
 
-    // Function for typing effect with pauses and cursor
+    // Function for typing effect with pauses and fluctuating speed
     function type() {
         if (i < typewriterText.length) {
             if (j <= typewriterText[i].length) {
                 currentText = typewriterText[i].slice(0, j++);
                 typewriter.innerHTML = `${currentText}<span class="cursor"></span>`; // Add cursor
                 typingSound.play(); // Play typing sound with each key press
-                setTimeout(type, currentText.endsWith(".") ? 800 : 120); // Slightly faster, subtle adjustment
+                const randomPause = Math.random() * 300; // Introduce random speed fluctuations
+                setTimeout(type, currentText.endsWith(".") ? 800 + randomPause : 120 + randomPause); // Vary typing speed
             } else {
                 // Show continue button after text completes
                 document.getElementById('continue-button').style.display = 'inline-block';

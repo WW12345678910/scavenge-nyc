@@ -28,6 +28,7 @@
         .cursor {
             display: inline-block;
             width: 2px;
+            height: 1.5rem;
             background-color: white;
             animation: blink 1s infinite;
             margin-left: 5px;
@@ -71,6 +72,10 @@
             display: none;
         }
         video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 100vw; /* Full-width */
             height: 100vh; /* Full-height */
             object-fit: cover; /* Ensure video covers the screen without distortion */
