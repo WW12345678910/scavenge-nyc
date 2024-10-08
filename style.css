@@ -21,6 +21,26 @@ body {
     color: white;
 }
 
+.text {
+    font-size: 50px;
+    color: white;
+    text-align: center;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    background-color: white;
+    animation: blink 1s infinite;
+    margin-left: 5px;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 .button {
     background-color: black;
     color: white;

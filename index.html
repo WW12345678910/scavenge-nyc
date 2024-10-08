@@ -23,6 +23,19 @@
         .text {
             font-size: 1.5rem;
             margin: 20px 0;
+            display: inline; /* Adjust for typing effect */
+        }
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background-color: white;
+            animation: blink 1s infinite;
+            margin-left: 5px;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
         }
         .button {
             background-color: black;

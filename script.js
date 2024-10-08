@@ -22,13 +22,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Typing sound
     const typingSound = new Audio('myaudio.wav'); // Replace with your actual audio file
 
-    // Function for typing effect with pauses
+    // Function for typing effect with pauses and cursor
     function type() {
         if (i < typewriterText.length) {
             if (j <= typewriterText[i].length) {
                 currentText = typewriterText[i].slice(0, j++);
-                typewriter.textContent = currentText;
-                setTimeout(type, currentText.endsWith(".") ? 1000 : 150); // Longer pause after periods
+                typewriter.innerHTML = `${currentText}<span class="cursor"></span>`; // Add cursor
+                typingSound.play(); // Play typing sound with each key press
+                setTimeout(type, currentText.endsWith(".") ? 800 : 120); // Slightly faster, subtle adjustment
             } else {
                 // Show continue button after text completes
                 document.getElementById('continue-button').style.display = 'inline-block';
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('continue-button').style.display = 'none';
             i++;
             j = 0;
+            isComplete = false; // Reset the flag
             type(); // Continue typing
         } else {
             typingSound.play(); // Play typing sound only after user interaction
