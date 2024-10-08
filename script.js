@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const video = document.getElementById('intro-video'); // Updated ID to match your HTML
+    const video = document.getElementById('intro-video');
     const typewriterText = [
         "Thanks for scanning me.",
         "I have a message for you… It’s from the founder.",
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "Your journey awaits… but only if you choose to begin."
     ];
 
-    const typewriter = document.getElementById('text-container'); // Updated ID to match your HTML
+    const typewriter = document.getElementById('text-container');
     let i = 0;
     let j = 0;
     let currentText = '';
@@ -21,16 +21,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let isComplete = false;
 
     // Create an audio element for typing sound
-    const typingSound = new Audio('myaudio.wav'); // Replace with the name of your audio file
+    const typingSound = new Audio('myaudio.wav');
 
-    // Function for typing effect
+    // Function for typing effect with periodic pauses
     function type() {
         if (i < typewriterText.length) {
             if (!isDeleting && j <= typewriterText[i].length) {
                 currentText = typewriterText[i].slice(0, j++);
                 typewriter.textContent = currentText;
-                typingSound.play(); // Play typing sound
-                setTimeout(type, 150);
+                typingSound.play(); // Play typing sound with every key press
+                setTimeout(type, currentText.endsWith(".") ? 1000 : 150); // Pause after periods, type faster otherwise
             } else if (isDeleting && j > 0) {
                 currentText = typewriterText[i].slice(0, j--);
                 typewriter.textContent = currentText;
@@ -50,27 +50,27 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else {
             isComplete = true;
-            document.getElementById('continue-button').classList.remove('hidden'); // Updated ID to match your HTML
+            document.getElementById('continue-button').classList.remove('hidden');
         }
     }
 
-    // Start typing after video ends (around 8-9 seconds with abrupt cut-off)
+    // Start typing after video ends
     video.addEventListener('timeupdate', function() {
         if (video.currentTime >= 8.5) {
-            video.style.display = 'none'; // Abrupt cut-off
-            type();
+            video.style.display = 'none'; // Abrupt cut-off after 8.5 seconds
+            type(); // Start typing after video ends
         }
     });
 
     // Continue button functionality
     document.getElementById('continue-button').addEventListener('click', function() {
         if (isComplete) {
-            document.getElementById('instagram-button').classList.remove('hidden'); // Updated ID to match your HTML
+            document.getElementById('instagram-button').classList.remove('hidden');
         }
     });
 
     // Read again button and Instagram follow functionality
     document.getElementById('instagram-button').addEventListener('click', function() {
-        // Place Instagram follow logic here if needed
+        // Instagram follow logic can be added here
     });
 });
