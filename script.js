@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
         "No: (Close tab)",
         "Dear New Yorker,",
         "Imagine a city where every street corner hides a secret, where every alleyway whispers of stories untold...",
-        "You see, I have a plan. A vision to turn our beloved city into a playground of exploration and discovery… All for free. Picture this: a city-wide adventure, crafted just for you, where every clue leads you deeper into the heart of New York’s hidden gems.",
+        "You see, I have a plan. A vision to turn our beloved city into a playground of exploration and discovery… All for free.",
+        "Picture this: a city-wide adventure, crafted just for you, where every clue leads you deeper into the heart of New York’s hidden gems.",
         "But here’s the thing—to turn this idea into reality, I need you...",
         "Let’s start by taking a simple one: follow @ScavengeNYC_ on Instagram...",
         "Your journey awaits… but only if you choose to begin."
@@ -31,12 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 typewriter.innerHTML = `${currentText}<span class="cursor"></span>`; // Add cursor
                 typingSound.play(); // Play typing sound with each key press
                 
-                // Simulate typing speed for 102 WPM
-                const typingSpeed = Math.random() * (112 - 32) + 32; // Random speed between 32ms and 112ms
+                // Simulate typing speed for 104 WPM
+                const typingSpeed = Math.random() * (120 - 32) + 32; // Random speed between 32ms and 120ms
                 
-                // Introduce random pauses with a lower frequency
+                // Introduce random pauses with slightly less frequency
                 const randomPauseChance = Math.random(); // Chance to introduce a pause
-                const randomPause = randomPauseChance < 0.15 ? Math.random() * (300 - 100) + 100 : 0; // 15% chance to pause between 100ms and 300ms
+                const randomPause = randomPauseChance < 0.14 ? Math.random() * (300 - 100) + 100 : 0; // 14% chance to pause between 100ms and 300ms
                 setTimeout(type, typingSpeed + randomPause); // Apply typing speed and pause
             } else {
                 // Show continue button after text completes
