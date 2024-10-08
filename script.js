@@ -20,17 +20,22 @@ document.addEventListener('DOMContentLoaded', function() {
     let isComplete = false;
 
     // Typing sound
-    const typingSound = new Audio('myaudio.wav'); // Replace with your actual audio file
+    const typingSound = new Audio('myaudio.wav'); // Ensure the sound file path is correct
 
-    // Function for typing effect with pauses and fluctuating speed
+    // Function to simulate human-like typing
     function type() {
         if (i < typewriterText.length) {
             if (j <= typewriterText[i].length) {
                 currentText = typewriterText[i].slice(0, j++);
                 typewriter.innerHTML = `${currentText}<span class="cursor"></span>`; // Add cursor
                 typingSound.play(); // Play typing sound with each key press
-                const randomPause = Math.random() * 300; // Introduce random speed fluctuations
-                setTimeout(type, currentText.endsWith(".") ? 800 + randomPause : 120 + randomPause); // Vary typing speed
+                
+                // Simulate random typing speed
+                const typingSpeed = Math.random() * (200 - 100) + 100; // Random speed between 100ms and 200ms
+                
+                // Introduce random pauses for a more natural feel
+                const randomPause = Math.random() < 0.2 ? Math.random() * (500 - 200) + 200 : 0; // 20% chance to pause between 200ms and 500ms
+                setTimeout(type, typingSpeed + randomPause); // Apply typing speed and pause
             } else {
                 // Show continue button after text completes
                 document.getElementById('continue-button').style.display = 'inline-block';
