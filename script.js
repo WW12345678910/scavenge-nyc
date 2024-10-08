@@ -30,11 +30,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 typewriter.innerHTML = `${currentText}<span class="cursor"></span>`; // Add cursor
                 typingSound.play(); // Play typing sound with each key press
                 
-                // Simulate random typing speed
-                const typingSpeed = Math.random() * (200 - 100) + 100; // Random speed between 100ms and 200ms
+                // Simulate typing speed for 66 WPM
+                const typingSpeed = Math.random() * (150 - 75) + 75; // Random speed between 75ms and 150ms
                 
-                // Introduce random pauses for a more natural feel
-                const randomPause = Math.random() < 0.2 ? Math.random() * (500 - 200) + 200 : 0; // 20% chance to pause between 200ms and 500ms
+                // Introduce random pauses with a lower frequency
+                const randomPauseChance = Math.random(); // Chance to introduce a pause
+                const randomPause = randomPauseChance < 0.15 ? Math.random() * (400 - 100) + 100 : 0; // 15% chance to pause between 100ms and 400ms
                 setTimeout(type, typingSpeed + randomPause); // Apply typing speed and pause
             } else {
                 // Show continue button after text completes
