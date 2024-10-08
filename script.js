@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "No: (Close tab)",
         "Dear New Yorker,",
         "Imagine a city where every street corner hides a secret, where every alleyway whispers of stories untold...",
+        "You see, I have a plan. A vision to turn our beloved city into a playground of exploration and discovery… All for free. Picture this: a city-wide adventure, crafted just for you, where every clue leads you deeper into the heart of New York’s hidden gems.",
         "But here’s the thing—to turn this idea into reality, I need you...",
         "Let’s start by taking a simple one: follow @ScavengeNYC_ on Instagram...",
         "Your journey awaits… but only if you choose to begin."
