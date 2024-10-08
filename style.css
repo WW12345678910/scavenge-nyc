@@ -6,9 +6,9 @@ body {
 }
 
 #intro-video {
-    width: 100%;
-    height: 100vh; /* Full-screen height */
-    object-fit: cover; /* Ensure video fits the entire screen */
+    width: 100vw; /* Full-width */
+    height: 100vh; /* Full-height */
+    object-fit: cover; /* Ensure video covers the screen without distortion */
 }
 
 #text-container {
@@ -17,20 +17,20 @@ body {
     align-items: center;
     height: 100vh;
     text-align: center;
-}
-
-.text {
-    font-size: 50px;
+    font-size: 1.5rem; /* Adjust text size */
     color: white;
-    text-align: center;
 }
 
 .button {
     background-color: black;
     color: white;
+    font-family: Helvetica, sans-serif; /* Buttons use Helvetica */
+    font-size: 20px;
     padding: 10px 20px;
-    border: none;
+    border: 1px solid white;
+    cursor: pointer;
     display: none;
+    margin-top: 20px;
 }
 
 .instagram-button {
@@ -48,5 +48,9 @@ body {
     background-color: white;
     color: black;
     border-radius: 5px;
+    display: none;
+}
+
+#read-again {
     display: none;
 }

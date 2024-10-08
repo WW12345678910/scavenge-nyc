@@ -17,55 +17,43 @@ document.addEventListener('DOMContentLoaded', function() {
     let i = 0;
     let j = 0;
     let currentText = '';
-    let isDeleting = false;
     let isComplete = false;
 
-    // Create an audio element for typing sound
-    const typingSound = new Audio('myaudio.wav');
+    // Typing sound
+    const typingSound = new Audio('myaudio.wav'); // Replace with your actual audio file
 
-    // Function for typing effect with periodic pauses
+    // Function for typing effect with pauses
     function type() {
         if (i < typewriterText.length) {
-            if (!isDeleting && j <= typewriterText[i].length) {
+            if (j <= typewriterText[i].length) {
                 currentText = typewriterText[i].slice(0, j++);
                 typewriter.textContent = currentText;
-                typingSound.play(); // Play typing sound with every key press
-                setTimeout(type, currentText.endsWith(".") ? 1000 : 150); // Pause after periods, type faster otherwise
-            } else if (isDeleting && j > 0) {
-                currentText = typewriterText[i].slice(0, j--);
-                typewriter.textContent = currentText;
-                setTimeout(type, 100);
+                setTimeout(type, currentText.endsWith(".") ? 1000 : 150); // Longer pause after periods
             } else {
-                if (!isDeleting) {
-                    setTimeout(() => {
-                        isDeleting = true;
-                        type();
-                    }, 2000);
-                } else {
-                    isDeleting = false;
-                    i++;
-                    j = 0;
-                    type();
-                }
+                // Show continue button after text completes
+                document.getElementById('continue-button').style.display = 'inline-block';
+                isComplete = true;
             }
-        } else {
-            isComplete = true;
-            document.getElementById('continue-button').classList.remove('hidden');
         }
     }
 
     // Start typing after video ends
-    video.addEventListener('timeupdate', function() {
-        if (video.currentTime >= 8.5) {
-            video.style.display = 'none'; // Abrupt cut-off after 8.5 seconds
-            type(); // Start typing after video ends
-        }
+    video.addEventListener('ended', function() {
+        video.style.display = 'none'; // Hide video
+        document.getElementById('continue-button').style.display = 'inline-block'; // Show continue button to start typing
     });
 
-    // Continue button functionality
+    // Continue button interaction to start typing effect and typing sound
     document.getElementById('continue-button').addEventListener('click', function() {
         if (isComplete) {
-            document.getElementById('instagram-button').classList.remove('hidden');
+            // Move to next text and hide button again
+            document.getElementById('continue-button').style.display = 'none';
+            i++;
+            j = 0;
+            type(); // Continue typing
+        } else {
+            typingSound.play(); // Play typing sound only after user interaction
+            type(); // Start typing effect
         }
     });
 
